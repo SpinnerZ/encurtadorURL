@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>company.tds</groupId>
-	<artifactId>EncurtadorURL</artifactId>
+	<artifactId>encurtador_url</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>EncurtadorURL</name>
 	<description>Encurtador de links TDS</description>
