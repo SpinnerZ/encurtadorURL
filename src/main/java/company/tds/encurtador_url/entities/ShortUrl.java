@@ -2,6 +2,7 @@ package company.tds.encurtador_url.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,22 +12,29 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_url")
-public class ShortenedUrl implements Serializable {
+public class ShortUrl implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String longUrl;
+  private String url;
+
+  @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
   private LocalDateTime createdAt;
+
+  @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
   private LocalDateTime lastCreationAttempt;
+
+  @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
   private LocalDateTime lastAccess;
+
   private Integer accessCount;
   private Integer creationsCount;
 
-  public ShortenedUrl(String longUrl) {
-    this.longUrl = longUrl;
+  public ShortUrl(String url) {
+    this.url = url;
     accessCount = 0;
     creationsCount = 1;
   }
@@ -39,39 +47,24 @@ public class ShortenedUrl implements Serializable {
     this.id = id;
   }
 
-  public String getLongUrl() {
-    return longUrl;
+  public String getUrl() {
+    return url;
   }
 
-  public void setLongUrl(String longUrl) {
-    this.longUrl = longUrl;
+  public void setUrl(String url) {
+    this.url = url;
   }
 
   public LocalDateTime getCreatedAt() {
     return createdAt;
   }
 
-  @PrePersist
-  private void onCreation() {
-    createdAt = LocalDateTime.now();
-  }
-
   public LocalDateTime getLastCreationAttempt() {
     return lastCreationAttempt;
   }
 
-  public void addCreationAttempt() {
-    lastCreationAttempt = LocalDateTime.now();
-    creationsCount++;
-  }
-
   public LocalDateTime getLastAccess() {
     return lastAccess;
-  }
-
-  public void addAccess() {
-    lastAccess = LocalDateTime.now();
-    accessCount++;
   }
 
   public Integer getAccessCount() {
@@ -80,6 +73,21 @@ public class ShortenedUrl implements Serializable {
 
   public Integer getCreationsCount() {
     return creationsCount;
+  }
+
+  @PrePersist
+  private void onCreation() {
+    createdAt = LocalDateTime.now();
+  }
+
+  public void addCreationAttempt() {
+    lastCreationAttempt = LocalDateTime.now();
+    creationsCount++;
+  }
+
+  public void addAccess() {
+    lastAccess = LocalDateTime.now();
+    accessCount++;
   }
 
   @Override
@@ -91,13 +99,13 @@ public class ShortenedUrl implements Serializable {
       return false;
     }
 
-    ShortenedUrl that = (ShortenedUrl) o;
+    ShortUrl that = (ShortUrl) o;
 
-    return longUrl.equals(that.longUrl);
+    return url.equals(that.url);
   }
 
   @Override
   public int hashCode() {
-    return longUrl.hashCode();
+    return url.hashCode();
   }
 }

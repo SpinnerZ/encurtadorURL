@@ -3,7 +3,7 @@ package company.tds.encurtador_url.entities;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import company.tds.encurtador_url.repositories.ShortenedUrlRepository;
+import company.tds.encurtador_url.repositories.ShortUrlRepository;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,13 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @DataJpaTest
-class ShortenedUrlTest {
-  ShortenedUrl url;
-  @Autowired ShortenedUrlRepository repository;
+class ShortUrlTest {
+  ShortUrl url;
+  @Autowired
+  ShortUrlRepository repository;
 
   @BeforeEach
   void setUp() {
-    url = new ShortenedUrl("URL");
+    url = new ShortUrl("URL");
   }
 
   @Test
