@@ -3,6 +3,7 @@ package company.tds.encurtador_url.Controllers.short_url_controller;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -58,7 +59,10 @@ class ShortenUrlTest {
     assertAll(
         "Response JSON does not contains the expected structure or the returning data is wrong",
         () -> {
-          assertEquals(urlPrefix + "b", jsonResponse.getJSONObject("data").getString("shortUrl"));
+          assertTrue(
+              jsonResponse.getJSONObject("data").getString("shortUrl").startsWith(urlPrefix)
+                  && jsonResponse.getJSONObject("data").getString("shortUrl").length()
+                      > urlPrefix.length());
           assertEquals(
               "https://devdocs.io/", jsonResponse.getJSONObject("data").getString("longUrl"));
         });
