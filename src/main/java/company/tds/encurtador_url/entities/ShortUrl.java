@@ -33,6 +33,8 @@ public class ShortUrl implements Serializable {
   private Integer accessCount;
   private Integer creationsCount;
 
+  public ShortUrl() {}
+
   public ShortUrl(String url) {
     this.url = url;
     accessCount = 0;

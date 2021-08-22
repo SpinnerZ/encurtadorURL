@@ -2,6 +2,7 @@ package company.tds.encurtador_url.Controllers.short_url_controller;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -61,5 +62,25 @@ class ShortenUrlTest {
           assertEquals(
               "https://devdocs.io/", jsonResponse.getJSONObject("data").getString("longUrl"));
         });
+  }
+
+  @Test
+  @DisplayName("URL is not valid")
+  void shortenUrlShouldReturnAnErrorWhenUrlIsNotValid() throws Exception {
+    jsonRequest.put("url", "not valid url");
+
+    jsonResponse =
+        new JSONObject(
+            mvc.perform(
+                    post("/url")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest.toString())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError())
+                .andReturn()
+                .getResponse()
+                .getContentAsString());
+
+    assertNotEquals("", jsonResponse.get("message"), "Error message was blank");
   }
 }
