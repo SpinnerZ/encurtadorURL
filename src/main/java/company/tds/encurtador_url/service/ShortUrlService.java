@@ -2,6 +2,7 @@ package company.tds.encurtador_url.service;
 
 import company.tds.encurtador_url.entities.ShortUrl;
 import company.tds.encurtador_url.entities.dtos.CreateResponseShortUrlDto;
+import company.tds.encurtador_url.exceptions.UrlNotFoundException;
 import company.tds.encurtador_url.utils.Url;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,15 @@ public class ShortUrlService {
     String shortenUrl = urlPrefix + converter.compressId(url.getId());
 
     return new CreateResponseShortUrlDto(shortenUrl, longUrl);
+  }
+
+  @Transactional(readOnly = true)
+  public String retrieve(String shortUrl) {
+    Long id = converter.uncompressId(shortUrl);
+
+    ShortUrl url = helper.getShortUrlAndUpdate(id)
+        .orElseThrow(() -> new UrlNotFoundException(shortUrl));
+
+    return url.getUrl();
   }
 }

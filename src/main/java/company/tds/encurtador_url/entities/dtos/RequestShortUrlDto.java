@@ -2,13 +2,13 @@ package company.tds.encurtador_url.entities.dtos;
 
 import javax.validation.constraints.NotBlank;
 
-public class CreateRequestShortUrlDto {
+public class RequestShortUrlDto {
   @NotBlank(message = "The URL to be shortened cannot be blank!")
   private String url;
 
-  public CreateRequestShortUrlDto() {}
+  public RequestShortUrlDto() {}
 
-  public CreateRequestShortUrlDto(String url) {
+  public RequestShortUrlDto(String url) {
     this.url = url;
   }
 
@@ -29,7 +29,7 @@ public class CreateRequestShortUrlDto {
       return false;
     }
 
-    CreateRequestShortUrlDto that = (CreateRequestShortUrlDto) o;
+    RequestShortUrlDto that = (RequestShortUrlDto) o;
 
     return url.equals(that.url);
   }

@@ -47,7 +47,8 @@ class ShortenUrlTest {
             mvc.perform(
                     post("/url")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonRequest.toString()))
+                        .content(jsonRequest.toString())
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()

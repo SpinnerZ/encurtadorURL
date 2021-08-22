@@ -1,6 +1,6 @@
 package company.tds.encurtador_url.controllers;
 
-import company.tds.encurtador_url.entities.dtos.CreateRequestShortUrlDto;
+import company.tds.encurtador_url.entities.dtos.RequestShortUrlDto;
 import company.tds.encurtador_url.entities.dtos.CreateResponseShortUrlDto;
 import company.tds.encurtador_url.entities.dtos.ResponseDto;
 import company.tds.encurtador_url.service.ShortUrlService;
@@ -22,7 +22,7 @@ public class ShortUrlController {
 
   @PostMapping
   public ResponseEntity<ResponseDto<CreateResponseShortUrlDto>> shortenUrl(
-      @RequestBody @Valid CreateRequestShortUrlDto dto) {
+      @RequestBody @Valid RequestShortUrlDto dto) {
     return ResponseEntity.ok(new ResponseDto<>(service.create(dto.getUrl())));
   }
 }

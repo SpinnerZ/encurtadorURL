@@ -26,4 +26,17 @@ public class ShortUrlServiceHelper {
 
     return repository.save(url);
   }
+
+  public Optional<ShortUrl> getShortUrlAndUpdate(Long id) {
+    Optional<ShortUrl> response = repository.findById(id);
+    ShortUrl url;
+
+    if (response.isPresent()) {
+      url = response.get();
+      url.addAccess();
+      return Optional.of(repository.save(url));
+    } else {
+      return Optional.empty();
+    }
+  }
 }
