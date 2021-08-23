@@ -16,10 +16,39 @@ web. [Você pode clicar aqui se estiver executando localmente](http://localhost:
 _ou_ importar [esse arquivo](doc/api-docs.json)
 (doc/api-docs.json) [neste site](https://editor.swagger.io/#).
 
-### Guia rápido:
+### Guia rápido de uso
 
 > POST /url {"url":"string"}  
 > GET /url/{shortUrl}
+
+## Como usar
+
++ Pelo endereço na nuvem
+
+> [http://ec2-54-207-134-144.sa-east-1.compute.amazonaws.com](http://ec2-54-207-134-144.sa-east-1.compute.amazonaws.com/swagger-ui/index.html)
+
++ Com Docker
+
+```bash
+docker pull spinnerz/encurtador 
+```
+
+**e/ou**
+
+```bash
+docker run -p <PORTA>:8080 --name <NOME_LOCAL> -e APP_PROFILE=<test OU prod> -e DB_URL=<ENDEREÇO_DO_BANCO_DE_DADOS>:<PORTA_DO_BD>/<NOME_DO_BD> -e DB_USERNAME=postgres -e DB_PASSWORD=<SENHA> spinnerz/encurtador:<VERSÃO_MAIS_RECENTE>
+```
+
++ Sem Docker
+
+```bash
+git clone https://github.com/SpinnerZ/encurtadorURL.git
+cd encurtadorURL
+mvn clean package
+cd target
+java -jar encurtador_url-0.0.1-SNAPSHOT.jar
+```
+O arquivo _application.properties_ deve ser mudado para apontar corretamente para o banco de dados
 
 ## Cobertura de testes
 
@@ -39,7 +68,3 @@ complementares. Sendo assim, optei por não usar o [Lombok](https://projectlombo
 
 Devido ao pequeno escopo e classes também muito pequenas, também não foi necessário _até o momento_
 utilizar o padrão factory (nem Builders) para testes, paginação de resultados nem o GitFlow.
-
-## Endereço na nuvem
-
-> [http://ec2-54-207-134-144.sa-east-1.compute.amazonaws.com](http://ec2-54-207-134-144.sa-east-1.compute.amazonaws.com/swagger-ui/index.html)
