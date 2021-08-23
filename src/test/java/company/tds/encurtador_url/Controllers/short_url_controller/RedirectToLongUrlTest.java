@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import company.tds.encurtador_url.entities.ShortUrl;
 import company.tds.encurtador_url.repositories.ShortUrlRepository;
+import company.tds.encurtador_url.service.Converter;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 class RedirectToLongUrlTest {
   @Autowired MockMvc mvc;
   @Autowired ShortUrlRepository repository;
+  @Autowired Converter converter;
 
   @Value("${tds.url-prefix:https://tds.company/}")
   String urlPrefix;
@@ -35,9 +37,9 @@ class RedirectToLongUrlTest {
   @Test
   @DisplayName("Happy path - URL exists")
   void redirectToLongUrlShouldRedirectToExistentLongUrl() throws Exception {
-    repository.save(new ShortUrl(longUrl));
+    ShortUrl url = repository.save(new ShortUrl(longUrl));
 
-    mvc.perform(get("/url/b"))
+    mvc.perform(get("/url/" + converter.compressId(url.getId())))
         .andExpect(status().is3xxRedirection())
         .andExpect(redirectedUrl(longUrl));
   }
@@ -47,7 +49,7 @@ class RedirectToLongUrlTest {
   void redirectToLongUrlShouldReturnAMessageWithErrorWhenUrlDoesNotExists() throws Exception {
     JSONObject json =
         new JSONObject(
-            mvc.perform(get("/url/b"))
+            mvc.perform(get("/url/a"))
                 .andExpect(status().is4xxClientError())
                 .andReturn()
                 .getResponse()
