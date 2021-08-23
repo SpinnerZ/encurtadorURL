@@ -5,8 +5,8 @@ o [tiny url](https://tinyurl.com/app)). Foi feito como um desafio e teve um per�
 tempo para desenvolvimento. Ao invés de investir em funcionalidades, dei prioridade para implementar
 alguns recursos úteis, de modo a demonstrar conhecimento técnico.
 
-Ainda assim, os campos extras do
-banco de dados foram mantidos, para uma possível implementação a curto prazo.
+Ainda assim, os campos extras do banco de dados foram mantidos, para uma possível implementação a
+curto prazo.
 
 ## Documentação
 
@@ -39,3 +39,7 @@ complementares. Sendo assim, optei por não usar o [Lombok](https://projectlombo
 
 Devido ao pequeno escopo e classes também muito pequenas, também não foi necessário _até o momento_
 utilizar o padrão factory (nem Builders) para testes, paginação de resultados nem o GitFlow.
+
+## Endereço na nuvem
+
+> [http://ec2-54-207-134-144.sa-east-1.compute.amazonaws.com](http://ec2-54-207-134-144.sa-east-1.compute.amazonaws.com/swagger-ui/index.html)
