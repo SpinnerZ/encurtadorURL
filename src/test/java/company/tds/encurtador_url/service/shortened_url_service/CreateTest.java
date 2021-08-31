@@ -54,7 +54,7 @@ class CreateTest {
     assertAll(
         "Response DTO was not returned as expected",
         () -> {
-          assertEquals(urlPrefix + "Olt", resultDto.getShortUrl());
+          assertEquals(urlPrefix + "url/" + "Olt", resultDto.getShortUrl());
           assertEquals(longUrl, resultDto.getLongUrl());
         });
   }

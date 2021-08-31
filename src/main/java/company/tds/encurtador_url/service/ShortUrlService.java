@@ -21,7 +21,7 @@ public class ShortUrlService {
       @Value("${tds.url-prefix:https://tds.company/}") String urlPrefix) {
     this.helper = helper;
     this.converter = converter;
-    this.urlPrefix = urlPrefix;
+    this.urlPrefix = urlPrefix + "url/";
   }
 
   @Transactional(rollbackFor = Exception.class)
